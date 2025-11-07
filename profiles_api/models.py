@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import PermissionMixin
+from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 
 
@@ -31,16 +31,16 @@ class UserProfileManager(BaseUserManager):
             return user
 
 
-class UserProfile(AbstractBaseUser, PermissionMixin):
+class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Database model for users in the system """
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
-    is_activa = models.BoolenField(default=True)
-    is_staff =  models.BoolenField(default=True)
+    is_active = models.BooleanField(default=True)
+    is_staff =  models.BooleanField(default=True)
 
     objects = UserProfileManager()
 
-    USERANME_FIELD = 'email'
+    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
 
     def get_full_name(self):
